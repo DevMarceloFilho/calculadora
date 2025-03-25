@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Premium - Minimalista</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPCEtLSBDw61yY3VsbyBkZWNvcmF0aXZvIC0gdmVyc8OjbyBncmFuZGUgLS0+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjgiIGZpbGw9IiMwMDAwMDAiLz4KICAKICA8IS0tIEPDrXJjdWxvIGludGVyaW9yIC0gbmVnYXRpdm8gLS0+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjIiIGZpbGw9IiNmZmZmZmYiLz4KICAKICA8IS0tIFPDrW1ib2xvIGNhbGN1bGFkb3JhIG1pbmltYWxpc3RhIC0tPgogIDxwYXRoIGQ9Ik0zMCwyMiBMNDIsMjIgTTMwLDMyIEw0MiwzMiBNMzAsNDIgTDQyLDQyIE0yMiwyMCBMMjIsNDQiIAogICAgICAgIHN0cm9rZT0iIzAwMDAwMCIgCiAgICAgICAgc3Ryb2tlLXdpZHRoPSIzIiAKICAgICAgICBzdHJva2UtbGluZWNhcD0ic3F1YXJlIgogICAgICAgIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIFBvbnRvIGRlY29yYXRpdm8gLS0+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSIyMiIgcj0iMiIgZmlsbD0iIzAwMDAwMCIvPgo8L3N2Zz4=">
+</head>
+<body>
+    <div class="calculadora-container">
+        <div class="calculadora">
+            <div class="theme-toggle">
+                <label class="toggle-label" for="theme-switch">
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </label>
+            </div>
+            <h1 class="calc-title">Calculator</h1>
+            <div class="historico" id="historico"></div>
+            <div class="display" id="display">0</div>
+            <div class="teclado">
+                <button class="tecla limpar" data-action="limpar"><span>C</span></button>
+                <button class="tecla operador" data-action="backspace"><span>⌫</span></button>
+                <button class="tecla operador" data-action="porcentagem"><span>%</span></button>
+                <button class="tecla operador" data-action="operador"><span>/</span></button>
+
+                <button class="tecla" data-action="numero"><span>7</span></button>
+                <button class="tecla" data-action="numero"><span>8</span></button>
+                <button class="tecla" data-action="numero"><span>9</span></button>
+                <button class="tecla operador" data-action="operador"><span>*</span></button>
+
+                <button class="tecla" data-action="numero"><span>4</span></button>
+                <button class="tecla" data-action="numero"><span>5</span></button>
+                <button class="tecla" data-action="numero"><span>6</span></button>
+                <button class="tecla operador" data-action="operador"><span>-</span></button>
+
+                <button class="tecla" data-action="numero"><span>1</span></button>
+                <button class="tecla" data-action="numero"><span>2</span></button>
+                <button class="tecla" data-action="numero"><span>3</span></button>
+                <button class="tecla operador" data-action="operador"><span>+</span></button>
+
+                <button class="tecla" data-action="numero"><span>0</span></button>
+                <button class="tecla" data-action="decimal"><span>.</span></button>
+                <button class="tecla operador" data-action="inverter"><span>±</span></button>
+                <button class="tecla igual" data-action="calcular"><span>=</span></button>
+            </div>
+            <div class="footer">Premium v3.0 &copy; Todos os direitos reservados<br>Marcelo Filho</div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Estado da calculadora
+            const calculadora = {
+                valorAtual: '0',
+                valorAnterior: '',
+                operadorAtual: '',
+                novoNumero: true,
+                historico: ''
+            };
+
+            // Verificar tema salvo
+            const savedTheme = localStorage.getItem('calculatorTheme');
+            if (savedTheme === 'dark') {
+                $('body').addClass('dark-theme');
+                $('#theme-switch').prop('checked', true);
+            }
+
+            // Toggle Theme com animação aprimorada
+            $('#theme-switch').on('change', function() {
+                const $slider = $(this).next('.toggle-slider');
+                $slider.addClass('animating rolling');
+                
+                setTimeout(function() {
+                    if($('#theme-switch').is(':checked')) {
+                        $('body').addClass('dark-theme');
+                        localStorage.setItem('calculatorTheme', 'dark');
+                    } else {
+                        $('body').removeClass('dark-theme');
+                        localStorage.setItem('calculatorTheme', 'light');
+                    }
+                    
+                    // Adicionar efeito de brilho ao display ao mudar o tema
+                    $('#display').addClass('shine');
+                    setTimeout(() => $('#display').removeClass('shine'), 800);
+                    
+                    // Remover classes de animação após conclusão
+                    setTimeout(() => $slider.removeClass('animating rolling'), 600);
+                }, 300);
+            });
+
+            // Funções da calculadora
+            function atualizarDisplay() {
+                $('#display').text(calculadora.valorAtual);
+                $('#historico').text(calculadora.historico);
+                
+                // Adicionar efeito de brilho ao atualizar o display
+                $('#display').addClass('shine');
+                setTimeout(() => $('#display').removeClass('shine'), 500);
+            }
+
+            function adicionarNumero(numero) {
+                // Limitação de tamanho para evitar overflow no display
+                if (calculadora.valorAtual.length >= 12 && !calculadora.novoNumero) return;
+                
+                if (calculadora.novoNumero) {
+                    calculadora.valorAtual = numero;
+                    calculadora.novoNumero = false;
+                } else {
+                    // Evite múltiplos zeros à esquerda
+                    if (calculadora.valorAtual === '0') {
+                        calculadora.valorAtual = numero;
+                    } else {
+                        calculadora.valorAtual += numero;
+                    }
+                }
+                atualizarDisplay();
+            }
+
+            function adicionarDecimal() {
+                if (calculadora.novoNumero) {
+                    calculadora.valorAtual = '0.';
+                    calculadora.novoNumero = false;
+                } else if (calculadora.valorAtual.indexOf('.') === -1) {
+                    calculadora.valorAtual += '.';
+                }
+                atualizarDisplay();
+            }
+
+            function executarOperacao(operador) {
+                if (calculadora.novoNumero && calculadora.operadorAtual !== '=') {
+                    // Troca de operador
+                    calculadora.operadorAtual = operador;
+                    calculadora.historico = calculadora.valorAnterior + ' ' + operador;
+                    atualizarDisplay();
+                    return;
+                }
+                
+                if (calculadora.valorAnterior === '') {
+                    calculadora.valorAnterior = calculadora.valorAtual;
+                } else if (calculadora.operadorAtual) {
+                    const resultado = calcular();
+                    calculadora.valorAnterior = '' + resultado;
+                    calculadora.valorAtual = '' + resultado;
+                }
+                
+                calculadora.novoNumero = true;
+                calculadora.operadorAtual = operador;
+                
+                if (operador === '=') {
+                    calculadora.historico = '';
+                    calculadora.valorAnterior = '';
+                } else {
+                    calculadora.historico = calculadora.valorAnterior + ' ' + operador;
+                }
+                
+                atualizarDisplay();
+            }
+
+            function calcular() {
+                const anterior = parseFloat(calculadora.valorAnterior);
+                const atual = parseFloat(calculadora.valorAtual);
+                let resultado = 0;
+                
+                switch (calculadora.operadorAtual) {
+                    case '+':
+                        resultado = anterior + atual;
+                        break;
+                    case '-':
+                        resultado = anterior - atual;
+                        break;
+                    case '*':
+                        resultado = anterior * atual;
+                        break;
+                    case '/':
+                        resultado = atual !== 0 ? anterior / atual : 'Erro';
+                        break;
+                }
+                
+                // Verificar por NaN, Infinity ou erros
+                if (isNaN(resultado) || !isFinite(resultado)) {
+                    return 'Erro';
+                }
+                
+                // Arredondar para evitar problemas de ponto flutuante
+                if (typeof resultado === 'number') {
+                    resultado = parseFloat(resultado.toFixed(8));
+                    // Remover zeros à direita após o ponto decimal
+                    return resultado.toString().replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+                }
+                
+                return resultado;
+            }
+
+            function limpar() {
+                calculadora.valorAtual = '0';
+                calculadora.valorAnterior = '';
+                calculadora.operadorAtual = '';
+                calculadora.novoNumero = true;
+                calculadora.historico = '';
+                atualizarDisplay();
+            }
+
+            function calcularPorcentagem() {
+                const valor = parseFloat(calculadora.valorAtual);
+                
+                if (calculadora.valorAnterior === '') {
+                    // Se não houver valor anterior, simplesmente converte para percentual
+                    calculadora.valorAtual = '' + (valor / 100);
+                } else {
+                    // Calcula a porcentagem do valor anterior
+                    const base = parseFloat(calculadora.valorAnterior);
+                    calculadora.valorAtual = '' + (base * valor / 100);
+                }
+                
+                atualizarDisplay();
+            }
+
+            function inverterSinal() {
+                const valor = parseFloat(calculadora.valorAtual);
+                calculadora.valorAtual = '' + (-valor);
+                atualizarDisplay();
+            }
+
+            function backspace() {
+                if (calculadora.valorAtual.length > 1) {
+                    calculadora.valorAtual = calculadora.valorAtual.slice(0, -1);
+                } else {
+                    calculadora.valorAtual = '0';
+                }
+                atualizarDisplay();
+            }
+
+            // Event Listeners para cliques
+            $('.tecla').on('click', function() {
+                const action = $(this).data('action');
+                const teclaValue = $(this).find('span').text();
+                
+                // Adiciona feedback visual e haptico melhorado
+                $(this).addClass('active').css({
+                    'transform': 'scale(0.95)',
+                    'background-color': 'var(--button-hover)'
+                });
+                
+                setTimeout(() => {
+                    $(this).removeClass('active').css({
+                        'transform': '',
+                        'background-color': ''
+                    });
+                }, 150);
+                
+                // Executa ação correspondente
+                switch (action) {
+                    case 'numero':
+                        adicionarNumero(teclaValue);
+                        break;
+                    case 'operador':
+                        executarOperacao(teclaValue);
+                        break;
+                    case 'decimal':
+                        adicionarDecimal();
+                        break;
+                    case 'limpar':
+                        limpar();
+                        break;
+                    case 'calcular':
+                        executarOperacao('=');
+                        break;
+                    case 'porcentagem':
+                        calcularPorcentagem();
+                        break;
+                    case 'inverter':
+                        inverterSinal();
+                        break;
+                    case 'backspace':
+                        backspace();
+                        break;
+                }
+            });
+
+            // Suporte a teclado
+            $(document).on('keydown', function(e) {
+                // Previne o comportamento padrão para teclas específicas
+                if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', 'Enter', 'Escape', 'Backspace', '%'].includes(e.key)) {
+                    e.preventDefault();
+                }
+                
+                if (e.key >= '0' && e.key <= '9') {
+                    adicionarNumero(e.key);
+                    animarTecla(e.key);
+                } else if (e.key === '.') {
+                    adicionarDecimal();
+                    animarTecla('.');
+                } else if (['+', '-', '*', '/'].includes(e.key)) {
+                    executarOperacao(e.key);
+                    animarTecla(e.key);
+                } else if (e.key === 'Enter' || e.key === '=') {
+                    executarOperacao('=');
+                    animarTecla('=');
+                } else if (e.key === 'Escape') {
+                    limpar();
+                    animarTecla('C');
+                } else if (e.key === 'Backspace') {
+                    backspace();
+                    animarTecla('⌫');
+                } else if (e.key === '%') {
+                    calcularPorcentagem();
+                    animarTecla('%');
+                }
+            });
+            
+            // Função para animar a tecla pressionada
+            function animarTecla(tecla) {
+                $('.tecla').each(function() {
+                    if ($(this).find('span').text() === tecla) {
+                        $(this).addClass('active').css({
+                            'transform': 'scale(0.95)',
+                            'background-color': 'var(--button-hover)'
+                        });
+                        
+                        setTimeout(() => {
+                            $(this).removeClass('active').css({
+                                'transform': '',
+                                'background-color': ''
+                            });
+                        }, 150);
+                    }
+                });
+            }
+
+            // Inicializar
+            atualizarDisplay();
+            
+            // Adicionar detecção automática do tema do sistema
+            if (window.matchMedia && !localStorage.getItem('calculatorTheme')) {
+                const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDarkMode) {
+                    $('body').addClass('dark-theme');
+                    $('#theme-switch').prop('checked', true);
+                    localStorage.setItem('calculatorTheme', 'dark');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

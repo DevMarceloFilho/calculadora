@@ -12,8 +12,8 @@ Uma calculadora web com design elegante e minimalista em preto e branco. Desenvo
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="img/tema-claro.png" alt="Calculadora - Tema Claro" width="45%">
-  <img src="img/tema-escuro.png" alt="Calculadora - Tema Escuro" width="45%">
+  <img src="https://private-user-images.githubusercontent.com/204806828/426328321-d70b525a-a1ac-474f-a023-c5dab6700ed0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDI4NjkzNDMsIm5iZiI6MTc0Mjg2OTA0MywicGF0aCI6Ii8yMDQ4MDY4MjgvNDI2MzI4MzIxLWQ3MGI1MjVhLWExYWMtNDc0Zi1hMDIzLWM1ZGFiNjcwMGVkMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwMzI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDMyNVQwMjE3MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05MWViODA3ZjNiN2IyNDNlNjc4Zjk5OTkwNDU1ZWI0NjAwMTJkZTlhM2VlM2NlYjMzODQ1MTI4ZjBjZTMyZjY5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.BU14-ZpIuTx0hGlVlAAed-w50CuZa0Eo3dYDCzPHZc4" alt="Calculadora - Tema Claro" width="45%">
+  <img src="https://private-user-images.githubusercontent.com/204806828/426328320-dfb911f2-d76b-4a2c-bdfe-a8c9bb4a94e8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDI4NjkzNDMsIm5iZiI6MTc0Mjg2OTA0MywicGF0aCI6Ii8yMDQ4MDY4MjgvNDI2MzI4MzIwLWRmYjkxMWYyLWQ3NmItNGEyYy1iZGZlLWE4YzliYjRhOTRlOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwMzI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDMyNVQwMjE3MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lY2UyMjVlNzA1ZGMzMGQyZWVjNmIxZjRkNTBmZTBmMGVhZTEzMzczMTBlMWRjMDQ0NzM2ZjI0NmU3OTdjYjY5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.lTLHX3OsmnMF9lq9aIhHmRdaM3qDIx5oMbLbK4ovfSY" alt="Calculadora - Tema Escuro" width="45%">
   <p><em>Versões com tema claro e escuro da calculadora</em></p>
 </div>
 

@@ -12,8 +12,8 @@ Uma calculadora web com design elegante e minimalista em preto e branco. Desenvo
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="screenshots/calculadora-tema-claro.png" alt="Calculadora - Tema Claro" width="45%">
-  <img src="screenshots/calculadora-tema-escuro.png" alt="Calculadora - Tema Escuro" width="45%">
+  <img src="/img/tema-claro.png" alt="Calculadora - Tema Claro" width="45%">
+  <img src="/img/tema-escuro.png" alt="Calculadora - Tema Escuro" width="45%">
   <p><em>Versões com tema claro e escuro da calculadora</em></p>
 </div>
 
